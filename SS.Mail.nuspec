@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SS.Mail</id>
+    <version>$version$</version>
+    <title>邮件发送插件</title>
+    <authors>SiteServer CMS</authors>
+    <owners>siteserver</owners>
+    <licenseUrl>https://github.com/siteserver/SS.Mail/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/siteserver/SS.Mail</projectUrl>
+    <iconUrl>https://plugins.siteserver.cn/ss.mail/logo.svg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SiteServer CMS 邮件发送插件</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>SiteServer CMS Mail Plugin</tags>
+  </metadata>
+</package>

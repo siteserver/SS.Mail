@@ -1,0 +1,91 @@
+# configuration for "master" branch
+- branches:
+    only:
+      - master
+
+  version: 1.0.{build}
+
+  assembly_info:
+    patch: true
+    file: AssemblyInfo.*
+    assembly_version: '{version}'
+    assembly_file_version: '{version}'
+    assembly_informational_version: '{version}'
+
+  platform: Any CPU
+
+  configuration:
+    - Release
+
+  environment:
+    TreatWarningsAsErrors: false
+
+  skip_tags: true
+
+  cache:
+    - packages -> **\packages.config
+
+  before_build:
+    - nuget restore SS.Mail.sln
+
+  build:
+    project: SS.Mail.sln # path to Visual Studio solution or project
+    publish_nuget: true
+
+  artifacts:
+    - path: '*.nupkg'
+
+  deploy:
+    - provider: NuGet
+      server: # remove to push to NuGet.org
+      api_key:
+        secure: B9umZPwBVx2TMfYt7G1Eppy7XX0FkqWioXxwR+lKv5XVRc6ezjOXP8D9iuisOWBF
+      skip_symbols: false
+      symbol_server: # remove to push symbols to SymbolSource.org
+      artifact: /.*\.nupkg/
+
+# configuration for "dev" branch
+- branches:
+    only:
+      - dev
+
+  version: 1.0.{build}-beta
+
+  assembly_info:
+    patch: true
+    file: AssemblyInfo.*
+    assembly_version: '{version}'
+    assembly_file_version: '{version}'
+    assembly_informational_version: '{version}'
+
+  platform: Any CPU
+
+  configuration:
+    - Release
+
+  environment:
+    TreatWarningsAsErrors: false
+
+  skip_tags: true
+
+  cache:
+    - packages -> **\packages.config
+
+  before_build:
+    - nuget restore SS.Mail.sln
+
+  build:
+    project: SS.Mail.sln # path to Visual Studio solution or project
+    publish_nuget: true
+
+  artifacts:
+    - path: '*.nupkg'
+
+  deploy:
+    - provider: NuGet
+      server: # remove to push to NuGet.org
+      api_key:
+        secure: B9umZPwBVx2TMfYt7G1Eppy7XX0FkqWioXxwR+lKv5XVRc6ezjOXP8D9iuisOWBF
+      skip_symbols: false
+      symbol_server: # remove to push symbols to SymbolSource.org
+      artifact: /.*\.nupkg/
