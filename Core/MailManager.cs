@@ -73,7 +73,7 @@ namespace SS.Mail.Core
             {
                 Subject = title,
                 SubjectEncoding = Encoding.UTF8,
-                Body = $@"<pre style=""width:100%;word-wrap:break-word"">{body}</pre>",
+                Body = body,
                 BodyEncoding = Encoding.UTF8,
                 IsBodyHtml = true
             };
