@@ -33,41 +33,92 @@ namespace SS.Mail.Core
                 displayName = address;
             }
 
-            SmtpClient smtpClient;
+            string fromUserName;
+            string fromDisplayName;
+            string fromPassword;
+            bool enableSsl;
+            string host;
+            var port = 25;
 
-            if (string.Equals(config.Provider, MailProvider.QqMail.Value, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(config.Provider, MailProvider.Default.Value, StringComparison.OrdinalIgnoreCase))
             {
-                smtpClient = new SmtpClient
-                {
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Host = "smtp.qq.com",
-                    Credentials = new System.Net.NetworkCredential(config.Address, config.Password)
-                };
+                fromUserName = "noreply@services.siteserver.cn";
+                fromDisplayName = "SiteServer CMS";
+                fromPassword = "1T3g8BMwzACa1z2";
+                enableSsl = false;
+                host = "smtpdm.aliyun.com";
+                port = 80;
+
+                //smtpClient = new SmtpClient
+                //{
+                //    EnableSsl = false,
+                //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                //    Host = "smtpdm.aliyun.com",
+                //    Port = 80,
+                //    Credentials = new System.Net.NetworkCredential("noreply@services.siteserver.cn", "1T3g8BMwzACa1z2")
+                //};
+            }
+            else if (string.Equals(config.Provider, MailProvider.QqMail.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                fromUserName = config.Address;
+                fromDisplayName = config.DisplayName;
+                fromPassword = config.Password;
+                enableSsl = true;
+                host = "smtp.qq.com";
+
+                //smtpClient = new SmtpClient
+                //{
+                //    EnableSsl = true,
+                //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                //    Host = "smtp.qq.com",
+                //    Credentials = new System.Net.NetworkCredential(config.Address, config.Password)
+                //};
             }
             else if (string.Equals(config.Provider, MailProvider.QqExMail.Value, StringComparison.OrdinalIgnoreCase))
             {
-                smtpClient = new SmtpClient
-                {
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Host = "smtp.exmail.qq.com",
-                    Credentials = new System.Net.NetworkCredential(config.Address, config.Password)
-                };
+                fromUserName = config.Address;
+                fromDisplayName = config.DisplayName;
+                fromPassword = config.Password;
+                enableSsl = true;
+                host = "smtp.exmail.qq.com";
+
+                //smtpClient = new SmtpClient
+                //{
+                //    EnableSsl = true,
+                //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                //    Host = "smtp.exmail.qq.com",
+                //    Credentials = new System.Net.NetworkCredential(config.Address, config.Password)
+                //};
             }
             else
             {
-                smtpClient = new SmtpClient
-                {
-                    EnableSsl = config.IsEnableSsl,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Host = config.Host,
-                    Port = config.Port,
-                    Credentials = new System.Net.NetworkCredential(config.Address, config.Password)
-                };
+                fromUserName = config.Address;
+                fromDisplayName = config.DisplayName;
+                fromPassword = config.Password;
+                enableSsl = config.IsEnableSsl;
+                host = config.Host;
+                port = config.Port;
+
+                //smtpClient = new SmtpClient
+                //{
+                //    EnableSsl = config.IsEnableSsl,
+                //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                //    Host = config.Host,
+                //    Port = config.Port,
+                //    Credentials = new System.Net.NetworkCredential(config.Address, config.Password)
+                //};
             }
 
-            var from = new MailAddress(config.Address, config.DisplayName);
+            var smtpClient = new SmtpClient
+            {
+                EnableSsl = enableSsl,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Host = host,
+                Port = port,
+                Credentials = new System.Net.NetworkCredential(fromUserName, fromPassword)
+            };
+
+            var from = new MailAddress(fromUserName, fromDisplayName);
             var to = new MailAddress(address, displayName);
             var message = new MailMessage(from, to)
             {

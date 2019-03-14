@@ -5,6 +5,8 @@ namespace SS.Mail.Core
 {
     public class MailProvider : IEquatable<MailProvider>, IComparable<MailProvider>
     {
+        public static readonly MailProvider Default = new MailProvider("default");
+
         public static readonly MailProvider QqMail = new MailProvider("qq");
 
         public static readonly MailProvider QqExMail = new MailProvider("qqEx");

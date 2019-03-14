@@ -60,6 +60,7 @@
           <div class="form-group">
             <label>邮箱账户</label>
             <select v-model="configInfo.provider" class="form-control">
+              <option value="default">默认</option>
               <option value="qq">QQ邮箱</option>
               <option value="qqEx">QQ企业邮箱</option>
               <option value="">其他</option>
@@ -93,32 +94,35 @@
             </div>
           </template>
 
-          <div class="form-group">
-            <label>
-              邮箱账号
-              <small v-show="errors.has('address')" class="text-danger">{{ errors.first('address') }}</small>
-            </label>
-            <input type="text" v-model="configInfo.address" name="address"
-              data-vv-as="邮箱账号" v-validate="'required|email'" :class="{'is-invalid': errors.has('address') }" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>
-              邮箱密码
-              <small v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</small>
-            </label>
-            <input type="password" v-model="configInfo.password" name="password"
-              data-vv-as="邮箱密码" v-validate="'required'" :class="{'is-invalid': errors.has('password') }" class="form-control">
-            <small class="form-text text-muted">如果邮箱账户为QQ邮箱或QQ企业邮箱，请输入客户端专用密码（在设置/账户中生成）</small>
-          </div>
-          <div class="form-group">
-            <label>
-              发件人
-              <small v-show="errors.has('displayName')" class="text-danger">{{ errors.first('displayName') }}</small>
-            </label>
-            <input type="text" v-model="configInfo.displayName" name="displayName"
-              data-vv-as="发件人" v-validate="'required'" :class="{'is-invalid': errors.has('displayName') }" class="form-control">
-            <small class="form-text text-muted">发件人通常为邮件发送方姓名或者单位名称</small>
-          </div>
+          <template v-if="configInfo.provider != 'default'">
+            <div class="form-group">
+              <label>
+                邮箱账号
+                <small v-show="errors.has('address')" class="text-danger">{{ errors.first('address') }}</small>
+              </label>
+              <input type="text" v-model="configInfo.address" name="address"
+                data-vv-as="邮箱账号" v-validate="'required|email'" :class="{'is-invalid': errors.has('address') }" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>
+                邮箱密码
+                <small v-show="errors.has('password')" class="text-danger">{{ errors.first('password') }}</small>
+              </label>
+              <input type="password" v-model="configInfo.password" name="password"
+                data-vv-as="邮箱密码" v-validate="'required'" :class="{'is-invalid': errors.has('password') }" class="form-control">
+              <small class="form-text text-muted">如果邮箱账户为QQ邮箱或QQ企业邮箱，请输入客户端专用密码（在设置/账户中生成）</small>
+            </div>
+            <div class="form-group">
+              <label>
+                发件人
+                <small v-show="errors.has('displayName')" class="text-danger">{{ errors.first('displayName') }}</small>
+              </label>
+              <input type="text" v-model="configInfo.displayName" name="displayName"
+                data-vv-as="发件人" v-validate="'required'" :class="{'is-invalid': errors.has('displayName') }" class="form-control">
+              <small class="form-text text-muted">发件人通常为邮件发送方姓名或者单位名称</small>
+            </div>
+          </template>
+
         </template>
 
         <hr />
