@@ -4,15 +4,16 @@
       - master
 
   version: 1.0.{build}
+  image: Visual Studio 2017
 
-  assembly_info:
+  dotnet_csproj:
     patch: true
-    file: AssemblyInfo.*
+    file: '**\*.csproj'
+    version: '{version}'
+    package_version: '{version}'
     assembly_version: '{version}'
-    assembly_file_version: '{version}'
-    assembly_informational_version: '{version}'
-
-  platform: Any CPU
+    file_version: '{version}'
+    informational_version: '{version}'
 
   configuration:
     - Release
@@ -26,23 +27,20 @@
     - packages -> **\packages.config
 
   before_build:
-    - nuget restore SS.Mail.sln
+    - dotnet restore SS.Mail.sln
 
   build:
     project: SS.Mail.sln # path to Visual Studio solution or project
     publish_nuget: true
 
-  artifacts:
-    - path: '*.nupkg'
-
   deploy:
-    - provider: NuGet
-      server: # remove to push to NuGet.org
-      api_key:
-        secure: B9umZPwBVx2TMfYt7G1Eppy7XX0FkqWioXxwR+lKv5XVRc6ezjOXP8D9iuisOWBF
-      skip_symbols: false
-      symbol_server: # remove to push symbols to SymbolSource.org
-      artifact: /.*\.nupkg/
+    provider: NuGet
+    server: # remove to push to NuGet.org
+    api_key:
+      secure: B9umZPwBVx2TMfYt7G1Eppy7XX0FkqWioXxwR+lKv5XVRc6ezjOXP8D9iuisOWBF
+    skip_symbols: false
+    symbol_server: # remove to push symbols to SymbolSource.org
+    artifact: /.*\.nupkg/
 
 # configuration for "dev" branch
 - branches:
@@ -50,15 +48,16 @@
       - dev
 
   version: 1.0.{build}-beta
+  image: Visual Studio 2017
 
-  assembly_info:
+  dotnet_csproj:
     patch: true
-    file: AssemblyInfo.*
+    file: '**\*.csproj'
+    version: '{version}'
+    package_version: '{version}'
     assembly_version: '{version}'
-    assembly_file_version: '{version}'
-    assembly_informational_version: '{version}'
-
-  platform: Any CPU
+    file_version: '{version}'
+    informational_version: '{version}'
 
   configuration:
     - Release
@@ -72,20 +71,17 @@
     - packages -> **\packages.config
 
   before_build:
-    - nuget restore SS.Mail.sln
+    - dotnet restore SS.Mail.sln
 
   build:
     project: SS.Mail.sln # path to Visual Studio solution or project
     publish_nuget: true
 
-  artifacts:
-    - path: '*.nupkg'
-
   deploy:
-    - provider: NuGet
-      server: # remove to push to NuGet.org
-      api_key:
-        secure: B9umZPwBVx2TMfYt7G1Eppy7XX0FkqWioXxwR+lKv5XVRc6ezjOXP8D9iuisOWBF
-      skip_symbols: false
-      symbol_server: # remove to push symbols to SymbolSource.org
-      artifact: /.*\.nupkg/
+    provider: NuGet
+    server: # remove to push to NuGet.org
+    api_key:
+      secure: B9umZPwBVx2TMfYt7G1Eppy7XX0FkqWioXxwR+lKv5XVRc6ezjOXP8D9iuisOWBF
+    skip_symbols: false
+    symbol_server: # remove to push symbols to SymbolSource.org
+    artifact: /.*\.nupkg/
