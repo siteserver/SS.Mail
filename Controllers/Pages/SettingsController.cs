@@ -14,15 +14,15 @@ namespace SS.Mail.Controllers.Pages
         {
             try
             {
-                var request = Context.GetCurrentRequest();
-                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(MailPlugin.PluginId))
+                var request = Context.AuthenticatedRequest;
+                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(Plugin.PluginId))
                 {
                     return Unauthorized();
                 }
 
                 return Ok(new
                 {
-                    Value = MailPlugin.GetConfigInfo()
+                    Value = Plugin.GetConfigInfo()
                 });
             }
             catch (Exception ex)
@@ -36,13 +36,13 @@ namespace SS.Mail.Controllers.Pages
         {
             try
             {
-                var request = Context.GetCurrentRequest();
-                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(MailPlugin.PluginId))
+                var request = Context.AuthenticatedRequest;
+                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(Plugin.PluginId))
                 {
                     return Unauthorized();
                 }
 
-                var config = MailPlugin.GetConfigInfo();
+                var config = Plugin.GetConfigInfo();
 
                 config.IsEnabled = request.GetPostBool(nameof(config.IsEnabled));
                 config.Provider = request.GetPostString(nameof(config.Provider));
@@ -53,7 +53,7 @@ namespace SS.Mail.Controllers.Pages
                 config.Password = request.GetPostString(nameof(config.Password));
                 config.DisplayName = request.GetPostString(nameof(config.DisplayName));
 
-                Context.ConfigApi.SetConfig(MailPlugin.PluginId, 0, config);
+                Context.ConfigApi.SetConfig(Plugin.PluginId, 0, config);
 
                 return Ok(new { });
             }

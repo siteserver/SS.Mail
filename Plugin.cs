@@ -3,11 +3,9 @@ using SS.Mail.Core;
 
 namespace SS.Mail
 {
-    public class MailPlugin : PluginBase
+    public class Plugin : PluginBase
     {
         public const string PluginId = "SS.Mail";
-
-        internal static MailPlugin Instance;
 
         internal static ConfigInfo GetConfigInfo()
         {
@@ -16,8 +14,6 @@ namespace SS.Mail
 
         public override void Startup(IService service)
         {
-            Instance = this;
-
             service
                 .AddSystemMenu(() => new Menu
                 {

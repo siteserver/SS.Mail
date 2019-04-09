@@ -15,13 +15,13 @@ namespace SS.Mail.Controllers.Pages
         {
             try
             {
-                var request = Context.GetCurrentRequest();
-                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(MailPlugin.PluginId))
+                var request = Context.AuthenticatedRequest;
+                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(Plugin.PluginId))
                 {
                     return Unauthorized();
                 }
 
-                var config = MailPlugin.GetConfigInfo();
+                var config = Plugin.GetConfigInfo();
                 
                 var address = request.GetPostString("address");
                 var displayName = request.GetPostString("displayName");
