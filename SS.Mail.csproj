@@ -29,7 +29,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="SiteServer.Plugin" Version="2.3.4" />
-    <PackageReference Include="SS.PluginBase.Vue" Version="1.0.8" />
   </ItemGroup>
 
 </Project>
