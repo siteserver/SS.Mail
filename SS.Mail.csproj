@@ -13,7 +13,7 @@
     <Description>SiteServer CMS 邮件发送插件</Description>
     <PackageLicenseUrl>https://github.com/siteserver/SS.Mail/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/siteserver/SS.Mail</PackageProjectUrl>
-    <PackageIconUrl>https://plugins.siteserver.cn/ss.mail/logo.svg</PackageIconUrl>
+    <PackageIconUrl>https://www.siteserver.cn/docs/SS.Mail/logo.svg</PackageIconUrl>
     <Copyright>Copyright © SiteServer CMS 2018</Copyright>
     <PackageTags>SiteServer CMS Mail Plugin</PackageTags>
     <RepositoryUrl>https://github.com/siteserver/SS.Mail</RepositoryUrl>
@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
-    <PackageReference Include="SiteServer.Plugin" Version="2.3.2" />
+    <PackageReference Include="SiteServer.Plugin" Version="2.3.4" />
   </ItemGroup>
 
 </Project>
