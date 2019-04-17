@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452</TargetFrameworks>
+    <TargetFramework>net452</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>SS.Mail</PackageId>
     <Version>1.0.0</Version>
     <Title>邮件发送插件</Title>
-    <PackageVersion>$version$</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
     <Authors>SiteServer CMS</Authors>
     <Company>SiteServer CMS</Company>
     <Product>Datory</Product>
@@ -23,13 +23,13 @@
 
   <ItemGroup>
     <Content Include="assets\**" />
-    <Content Include="docs\**" />
     <Content Include="pages\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="SiteServer.Plugin" Version="2.3.4" />
+    <PackageReference Include="SS.PluginBase.Vue" Version="1.0.8" />
   </ItemGroup>
 
 </Project>

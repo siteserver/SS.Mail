@@ -1,40 +1,3 @@
-var config = {
-  apiUrl: '../api'
-};
-
-if (window.swal) {
-  var swal2 = swal.mixin({
-    confirmButtonClass: 'btn btn-primary',
-    cancelButtonClass: 'btn btn-default ml-2',
-    buttonsStyling: false,
-  });
-}
-
-if (window.VeeValidate) {
-  VeeValidate.Validator.localize('zh_CN');
-  Vue.use(VeeValidate);
-  VeeValidate.Validator.localize({
-    zh_CN: {
-      messages: {
-        required: function (name) {
-          return name + '不能为空';
-        }
-      }
-    }
-  });
-  VeeValidate.Validator.extend('mobile', {
-    getMessage: function () {
-      return ' 请输入正确的手机号码';
-    },
-    validate: function (value, args) {
-      return (
-        value.length == 11 &&
-        /^((13|14|15|16|17|18|19)[0-9]{1}\d{8})$/.test(value)
-      );
-    }
-  });
-}
-
 var utils = {
   parse: function (responseText) {
     try {
@@ -54,6 +17,24 @@ var utils = {
     return decodeURIComponent(result[1]);
   },
 
+  getQueryInt: function(name) {
+    var value = utils.getQueryString(name);
+    return value ? parseInt(value) : 0;
+  },
+
+  getPageUrl: function(fileName) {
+    var url = fileName +
+      '?pluginId=' + utils.getQueryString('pluginId') +
+      '&apiUrl=' + encodeURIComponent(utils.getQueryString('apiUrl'));
+    var siteId = utils.getQueryInt('siteId');
+    var channelId = utils.getQueryInt('channelId');
+    var contentId = utils.getQueryInt('contentId');
+    if (siteId > 0) url += '&siteId=' + siteId;
+    if (channelId > 0) url += '&channelId=' + channelId;
+    if (contentId > 0) url += '&contentId=' + contentId;
+    return url;
+  },
+
   getPageAlert: function (error) {
     var message = error.message;
     if (error.response && error.response.data) {
@@ -70,28 +51,6 @@ var utils = {
     };
   },
 
-  getToken: function () {
-    return Cookies.get('SS-USER-TOKEN-CLIENT');
-  },
-
-  setToken: function (accessToken, expiresAt) {
-    Cookies.set('SS-USER-TOKEN-CLIENT', accessToken, {
-      expires: new Date(expiresAt)
-    });
-  },
-
-  removeToken: function () {
-    Cookies.remove('SS-USER-TOKEN-CLIENT');
-  },
-
-  redirectLogin: function () {
-    if (location.hash) {
-      location.href = 'pages/login.html';
-    } else {
-      top.location.hash = 'pages/login.html';
-    }
-  },
-
   loading: function (isLoading) {
     if (isLoading) {
       return layer.load(1, {
@@ -102,7 +61,7 @@ var utils = {
     }
   },
 
-  scrollToTop: function () {
+  up: function () {
     document.documentElement.scrollTop = document.body.scrollTop = 0;
   },
 
@@ -140,51 +99,20 @@ var utils = {
     return false;
   },
 
-  getConfig: function (params, callback, isRoot) {
-    var api = new utils.Api('/home', isRoot);
-    if (typeof params === 'string') {
-      params = {
-        pageName: params
-      };
+  openImagesLayer: function (imageUrls) {
+    var data = [];
+    for (var i = 0; i < imageUrls.length; i++) {
+      var imageUrl = imageUrls[i];
+      data.push({
+        src: imageUrl, //原图地址
+        thumb: imageUrl //缩略图地址
+      });
     }
-    api.get(params, function (err, res) {
-      if (err) {
-        api.get(params, function (err, res) {
-          if (err) return utils.alertError(err);
-          if (res.config.isHomeClosed) {
-            swal2({
-              title: '用户中心已关闭！',
-              type: 'error',
-              showConfirmButton: false,
-              allowOutsideClick: false,
-              allowEscapeKey: false
-            });
-          }
-          callback(res);
-        });
-      }
-      if (res.config.isHomeClosed) {
-        swal2({
-          title: '用户中心已关闭！',
-          text: ' ',
-          type: 'error',
-          showConfirmButton: false,
-          allowOutsideClick: false,
-          allowEscapeKey: false
-        });
-      }
-      callback(res);
-    });
-  },
-
-  alertError: function (err) {
-    swal2({
-      title: '系统错误！',
-      text: '请联系管理员协助解决',
-      type: 'error',
-      showConfirmButton: false,
-      allowOutsideClick: false,
-      allowEscapeKey: false
+    layer.photos({
+      photos: {
+        data: data
+      },
+      anim: 5
     });
   },
 
@@ -208,8 +136,3 @@ var utils = {
     return false;
   }
 };
-
-var $api = axios.create({
-  baseURL: utils.getQueryString('apiUrl') + '/SS.Mail/',
-  withCredentials: true
-});

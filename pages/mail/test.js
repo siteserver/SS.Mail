@@ -1,5 +1,7 @@
-var $url = '/pages/test';
-var $apiUrl = utils.getQueryString('apiUrl');
+var $api = axios.create({
+  baseURL: utils.getQueryString('apiUrl') + '/' + utils.getQueryString('pluginId') + '/pages/test/',
+  withCredentials: true
+});
 
 var data = {
   pageLoad: false,
@@ -15,7 +17,7 @@ var methods = {
     var $this = this;
 
     utils.loading(true);
-    $api.post($url, {
+    $api.post('', {
       address: $this.address,
       displayName: $this.displayName,
       title: $this.title,
@@ -49,7 +51,7 @@ var methods = {
   },
 
   btnNavClick: function (pageName) {
-    location.href = pageName + '?apiUrl=' + encodeURIComponent($apiUrl);
+    location.href = utils.getPageUrl(pageName);
   }
 };
 

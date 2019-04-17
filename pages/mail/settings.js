@@ -1,5 +1,7 @@
-var $url = '/pages/settings';
-var $apiUrl = utils.getQueryString('apiUrl');
+var $api = axios.create({
+  baseURL: utils.getQueryString('apiUrl') + '/' + utils.getQueryString('pluginId') + '/pages/settings/',
+  withCredentials: true
+});
 
 var data = {
   pageLoad: false,
@@ -11,7 +13,7 @@ var methods = {
   load: function () {
     var $this = this;
 
-    $api.get($url).then(function (response) {
+    $api.get('').then(function (response) {
       var res = response.data;
 
       $this.configInfo = res.value;
@@ -26,7 +28,7 @@ var methods = {
     var $this = this;
 
     utils.loading(true);
-    $api.post($url, $this.configInfo).then(function (response) {
+    $api.post('', $this.configInfo).then(function (response) {
       var res = response.data;
 
       swal2({
@@ -55,7 +57,7 @@ var methods = {
   },
 
   btnNavClick: function (pageName) {
-    location.href = pageName + '?apiUrl=' + encodeURIComponent($apiUrl);
+    location.href = utils.getPageUrl(pageName);
   }
 };
 

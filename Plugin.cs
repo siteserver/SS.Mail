@@ -3,7 +3,7 @@ using SS.Mail.Core;
 
 namespace SS.Mail
 {
-    public class Plugin : PluginBase
+    public class Plugin : SiteServer.Plugin.PluginBase
     {
         public const string PluginId = "SS.Mail";
 
@@ -18,7 +18,7 @@ namespace SS.Mail
                 .AddSystemMenu(() => new Menu
                 {
                     Text = "邮件发送设置",
-                    Href = "pages/settings.html"
+                    Href = "pages/mail/settings.html"
                 });
         }
 
