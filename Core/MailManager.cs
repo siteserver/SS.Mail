@@ -40,11 +40,11 @@ namespace SS.Mail.Core
             string host;
             var port = 25;
 
-            if (string.Equals(config.Provider, MailProvider.Default.Value, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(config.Provider, MailProvider.Aliyun.Value, StringComparison.OrdinalIgnoreCase))
             {
-                fromUserName = "noreply@services.siteserver.cn";
-                fromDisplayName = "SiteServer CMS";
-                fromPassword = "1T3g8BMwzACa1z2";
+                fromUserName = config.Address;
+                fromDisplayName = config.DisplayName;
+                fromPassword = config.Password;
                 enableSsl = false;
                 host = "smtpdm.aliyun.com";
                 port = 80;

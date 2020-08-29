@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -56,7 +56,7 @@
           <div class="form-group">
             <label>邮箱账户</label>
             <select v-model="configInfo.provider" class="form-control">
-              <option value="default">默认</option>
+                <option value="aliyun">阿里云邮件推送</option>
               <option value="qq">QQ邮箱</option>
               <option value="qqEx">QQ企业邮箱</option>
               <option value="">其他</option>
@@ -90,7 +90,7 @@
             </div>
           </template>
 
-          <template v-if="configInfo.provider != 'default'">
+          <template v-if="configInfo.provider != 'aliyun'">
             <div class="form-group">
               <label>
                 邮箱账号

@@ -4,7 +4,7 @@
     {
         public bool IsEnabled { get; set; } = true;
 
-        public string Provider { get; set; } = MailProvider.Default.Value;
+        public string Provider { get; set; } = MailProvider.Aliyun.Value;
 
         public string Host { get; set; }
 
