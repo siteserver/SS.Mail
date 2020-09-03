@@ -48,15 +48,6 @@ namespace SS.Mail.Core
                 enableSsl = false;
                 host = "smtpdm.aliyun.com";
                 port = 80;
-
-                //smtpClient = new SmtpClient
-                //{
-                //    EnableSsl = false,
-                //    DeliveryMethod = SmtpDeliveryMethod.Network,
-                //    Host = "smtpdm.aliyun.com",
-                //    Port = 80,
-                //    Credentials = new System.Net.NetworkCredential("noreply@services.siteserver.cn", "1T3g8BMwzACa1z2")
-                //};
             }
             else if (string.Equals(config.Provider, MailProvider.QqMail.Value, StringComparison.OrdinalIgnoreCase))
             {
